@@ -18,7 +18,7 @@ export default function RootLayout({
         <nav className="bg-white border-b border-gray-200 p-4 shadow-sm">
           <div className="max-w-5xl mx-auto flex justify-between items-center">
             <Link href="/" className="font-bold text-xl text-blue-900 tracking-tight hover:opacity-80 transition-opacity">
-              BlogApp Gateway
+              BlogApp
             </Link>
             
             <div className="flex gap-4 md:gap-6 items-center font-medium text-slate-600">

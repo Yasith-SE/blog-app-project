@@ -20,7 +20,7 @@ export default function Register() {
 
     try {
       // 1. Send data to Supabase Auth
-      const { data, error } = await supabase.auth.signUp({ 
+      const { error } = await supabase.auth.signUp({ 
         email, 
         password,
         options: {
@@ -40,8 +40,9 @@ export default function Register() {
       // 3. Redirect to the secure dashboard
       router.push('/dashboard')
 
-    } catch (error: any) {
-      setMessage(`Error: ${error.message}`)
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Unable to create your account.'
+      setMessage(`Error: ${errorMessage}`)
     } finally {
       setLoading(false)
     }

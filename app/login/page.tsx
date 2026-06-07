@@ -23,8 +23,9 @@ export default function Login() {
       
       setMessage('Login successful!')
       router.push('/dashboard')
-    } catch (error: any) {
-      setMessage(`Error: ${error.message}`)
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Unable to sign in.'
+      setMessage(`Error: ${errorMessage}`)
     } finally {
       setLoading(false)
     }
@@ -76,7 +77,7 @@ export default function Login() {
 
         <div className="mt-8 text-center border-t border-slate-100 pt-6">
           <p className="text-slate-600 font-medium">
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <Link href="/register" className="text-blue-600 font-bold hover:underline">
               Register here
             </Link>
