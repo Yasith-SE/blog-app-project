@@ -55,3 +55,5 @@ A full-stack blog publication app built with Next.js, Supabase, and Stripe. The 
 ## Notes
 
 Stripe prices are recurring monthly prices, so Checkout uses `subscription` mode. Supabase profile rows should include an `is_subscribed` field for premium access checks.
+
+For Vercel deployments, add the same `.env.local` values in **Project Settings > Environment Variables**. Local `.env.local` files are not uploaded to GitHub or Vercel.
