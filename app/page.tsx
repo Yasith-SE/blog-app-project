@@ -1,6 +1,6 @@
 'use client'
 
-import { supabase } from './lib/supabase'
+import { hasSupabaseConfig, supabase } from './lib/supabase'
 import { useState, useEffect } from 'react'
 
 type Post = {
@@ -13,10 +13,16 @@ type Post = {
 export default function Home() {
     const [posts, setPosts] = useState<Post[]>([])
     const [searchTerm, setSearchTerm] = useState('')
-    const [fetchMessage, setFetchMessage] = useState('')
+    const [fetchMessage, setFetchMessage] = useState(
+        hasSupabaseConfig ? '' : 'Supabase is not configured. Add Supabase environment variables in Vercel.'
+    )
 
     // This runs every time the user types in the search bar
     useEffect(() => {
+        if (!hasSupabaseConfig) {
+            return
+        }
+
         async function fetchPosts() {
             let query = supabase
                 .from('posts')

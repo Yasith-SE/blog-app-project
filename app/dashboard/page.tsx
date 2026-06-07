@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { supabase } from '../lib/supabase'
+import { hasSupabaseConfig, supabase } from '../lib/supabase'
 import { useRouter } from 'next/navigation'
 
 function countWords(text: string) {
@@ -26,6 +26,12 @@ export default function Dashboard() {
   // SECURITY & SUBSCRIPTION CHECK: Runs when the page loads
   useEffect(() => {
     async function checkAuthAndProfile() {
+      if (!hasSupabaseConfig) {
+        setStatusMessage('Error: Supabase is not configured. Add Supabase environment variables in Vercel.')
+        setIsLoadingAuth(false)
+        return
+      }
+
       // 1. Check if they are logged in
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) {

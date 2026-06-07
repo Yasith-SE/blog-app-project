@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { supabase } from '../lib/supabase'
+import { hasSupabaseConfig, supabase } from '../lib/supabase'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
@@ -19,6 +19,10 @@ export default function Register() {
     setMessage('Creating your secure account...')
 
     try {
+      if (!hasSupabaseConfig) {
+        throw new Error('Supabase is not configured. Add Supabase environment variables in Vercel.')
+      }
+
       // 1. Send data to Supabase Auth
       const { error } = await supabase.auth.signUp({ 
         email, 
